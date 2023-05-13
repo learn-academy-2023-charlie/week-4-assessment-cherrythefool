@@ -25,13 +25,18 @@ describe("shuffleOffTheFirst", () => {
     // checks if result includes expected subset in any order, but does not check that first value is not included. Both of our test arrays would pass this with no manipulation, since our outcome will be a subset of the original. However we do need this to remaing true.
     expect(shuffleOffTheFirst(colors1)).toEqual(expect.arrayContaining(["yellow", "blue", "pink", "green"]))
     expect(shuffleOffTheFirst(colors2)).toEqual(expect.arrayContaining(["indigo", "periwinkle", "ochre", "aquamarine", "saffron"]))
-
+    
     // checks if first value in original array does not exist in expected array
     expect(shuffleOffTheFirst(colors1)).toEqual(expect.not.arrayContaining(["purple"]))
     expect(shuffleOffTheFirst(colors2)).toEqual(expect.not.arrayContaining(["chartreuse"]))
-
+    
     //currently does not test if actually randomized, will continue and come back to solve
+   
+    //coming back to solve this now!
+    //imperfect option - checks for randomization but will fail if randomized order is equal to original order. ran 20 times failed twice (removed test w colors1 to reduce false fails), not perfect but better than not having a test for randomization. Should only fail 1/(5!) times now
 
+    // expect(shuffleOffTheFirst(colors2)).not.toEqual(["indigo", "periwinkle", "ochre", "aquamarine", "saffron"])
+    
   })
 })
 
@@ -63,13 +68,25 @@ const shuffleOffTheFirst = (array) => {
   return array.slice(1).sort((a, b) => Math.random()-0.5)
 }
 
-console.log("test 1:", shuffleOffTheFirst(colors1));
-console.log("test 2:", shuffleOffTheFirst(colors2));
+// console.log("test 1:", shuffleOffTheFirst(colors1));
+// console.log("test 2:", shuffleOffTheFirst(colors2));
+
 //I know from this log that I'm actually randomizing, but I also know that my original arrays will currently test as a pass with a slice but no randomization. I'll be coming back to that later.
+//already found option, fix tests for randomization but causes occassional false fall
 
 // --------------------2) Create a function that takes in an object that contains up votes and down votes and returns the end tally.
 
 // a) Create a test with expect statements for each of the variables provided.
+
+describe("voteCount", () => {
+  it("tallies net vote count from an object", () => {
+    expect(voteCount(votes1)).toEqual(11)
+    expect(voteCount(votes2)).toEqual(-31)
+  })
+})
+
+// good fail!     ReferenceError: voteCount is not defined
+
 
 const votes1 = { upVotes: 13, downVotes: 2 }
 // Expected output: 11
@@ -77,6 +94,18 @@ const votes2 = { upVotes: 2, downVotes: 33 }
 // Expected output: -31
 
 // b) Create the function that makes the test pass.
+
+//in - object 
+//out - net votes as number
+//process - create a function which takes in an object, accesses the information stored, subtracts downvotes from upvotes, and returns the result
+
+//create a function named voteCount which takes in an object
+const voteCount = (object) => {
+  //access upvotes in object, access and subtract downvotes
+  return object.upVotes - object.downVotes
+}
+// console.log("test1:", voteCount(votes1))
+// console.log("test2:", voteCount(votes2))
 
 // --------------------3) Create a function that takes in two arrays as arguments and returns one array with no duplicate values. STRETCH: Use the spread operator to pass in a dynamic number of arguments.
 
