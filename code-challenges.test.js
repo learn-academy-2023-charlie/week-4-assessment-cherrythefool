@@ -70,7 +70,6 @@ const shuffleOffTheFirst = (array) => {
 
 // console.log("test 1:", shuffleOffTheFirst(colors1));
 // console.log("test 2:", shuffleOffTheFirst(colors2));
-
 //I know from this log that I'm actually randomizing, but I also know that my original arrays will currently test as a pass with a slice but no randomization. I'll be coming back to that later.
 //already found option, fix tests for randomization but causes occassional false fall
 
@@ -111,8 +110,28 @@ const voteCount = (object) => {
 
 // a) Create a test with an expect statement using the variables provided.
 
+describe("uniqueArray", () => {
+  it("takes in two arrays, combines them, and eliminates duplicates", () => {
+    expect(uniqueArray(dataTypesArray1, dataTypesArray2)).toEqual(["array", "object", "number", "string", "Boolean", "null", "undefined"])
+  })
+})
+
+// good fail!     ReferenceError: uniqueArray is not defined
+
 const dataTypesArray1 = ["array", "object", "number", "string", "Boolean"]
 const dataTypesArray2 = ["string", "null", "Boolean", "string", "undefined"]
 // Expected output: ["array", "object", "number", "string", "Boolean", "null", "undefined"]
 
 // b) Create the function that makes the test pass.
+
+//in - two arrays with some duplicate values
+//out - one array with no duplicate values
+//process - create a function which takes in two arrays, combines them, eliminates duplicates, and returns one array with unique values
+
+//create a function called uniqueArray which takes two arrays as input
+const uniqueArray = (array1, array2) => {
+  //combine the two arrays into one
+  let comboArray = [...array1, ...array2]
+  //filter the combined array so that only unique values are returned - indexOf will find the index of the first instance of a value, so this will keep only values which are indexed at the indexOf index. Return this result
+  return comboArray.filter((value, index, array) => array.indexOf(value) === index)
+}
